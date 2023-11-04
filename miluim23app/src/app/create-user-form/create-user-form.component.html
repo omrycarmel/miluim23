@@ -1,0 +1,22 @@
+<button mat-icon-button style="float: right; margin: 5px" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+</button>
+<mat-dialog-content>
+    <header>
+        <h1>Create User</h1>
+    </header>
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name"/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone"/>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

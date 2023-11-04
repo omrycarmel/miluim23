@@ -9,12 +9,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list'
 import {MatButtonModule} from '@angular/material/button';
-import { AllUsersComponent } from './all-users/all-users.component'
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule}from '@angular/material/input'
+import {FormsModule}from '@angular/forms'
+import {MatFormFieldModule}from '@angular/material/form-field'
+import { AllUsersComponent } from './all-users/all-users.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CreateUserFormComponent } from './create-user-form/create-user-form.component'
+import { ReactiveFormsModule } from '@angular/forms';
+import { ShavzakComponent } from './shavzak/shavzak.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    PageNotFoundComponent,
+    CreateUserFormComponent,
+    ShavzakComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +34,12 @@ import { AllUsersComponent } from './all-users/all-users.component'
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,15 @@
+<p>all-users works!</p>
+<button mat-raised-button color="primary" (click)="createUserDialog()">Create User</button>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of users">
+            <td>{{u.name}}</td>            
+            <td>{{u.phone}}</td>            
+        </tr>
+    </tbody>
+</table>
+
