@@ -12,7 +12,6 @@ import { User } from 'src/app/entities/User';
 export class AllUsersComponent implements OnInit {
   users: User[] = [];
   constructor(private matDialog: MatDialog, private userService: UserServiceService) {
-    this.refreshUsers();
   }
   
   refreshUsers() {

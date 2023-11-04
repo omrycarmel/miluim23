@@ -1,1 +1,17 @@
-<p>shavzak works!</p>
+{{formGroup.value | json}}
+
+<div *ngFor="let mission of shavzak.missions">
+    <form [formGroup]="formGroup">
+        <h1>{{mission.name}}</h1>
+        <mat-form-field *ngFor="let u of mission.membersNames; index as i">
+            <input matInput type="text" [matAutocomplete]="auto" [formControlName]="mission.name + sep + i"/>  
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let un of allUsesNames" value="{{un}}">
+                    {{un}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </form>
+</div>

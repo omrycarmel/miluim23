@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CreateUserFormComponent } from './create-user-form/create-user-form.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShavzakComponent } from './shavzak/shavzak.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ShavzakComponent } from './shavzak/shavzak.component';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/entities/User';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class UserServiceService {
     )
   ]
 
-  refreshDataEvent: Subject<boolean> = new Subject()
+  refreshDataEvent: BehaviorSubject<boolean> = new BehaviorSubject(true)
 
   getAll() {
     return this.users;
