@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user';
-
+import { UserDbModel } from './user.dbmodel';
+import { AppDataSource } from 'src/db/dbinit';
 @Injectable()
 export class UserService {
-    users: User[] = [
-        new User('name1', 'phone1')
-    ]
-    getAll() {
-        return this.users;
+    private readonly repo = AppDataSource.getRepository(UserDbModel);
+    constructor() {
+
+    }
+    async getAll(): Promise<User[]> {
+        return await this.repo.find();
     }
 
-    create(user: User) {
-        this.users.push(user);
+    async create(user: User): Promise<void> {
+        const model = new UserDbModel();
+        model.name = user.name;
+        model.phone = user.phone;
+        model.privateNumber = user.privateNumber;
+        await this.repo.save(model);
     }
 }

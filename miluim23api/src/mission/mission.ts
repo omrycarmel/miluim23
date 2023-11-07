@@ -6,16 +6,16 @@ export class Mission {
     startTimeMin: number
     endTimeMin: number
     allDay: boolean
-    membersNames: string[] = []  
+    users: number[] = []  
     constructor(
         name: string,
         startTimeMin: number,
         endTimeMin: number,
         allDay: boolean,
-        membersNames: string[] = []
+        users: number[] = []
     ) {
         this.name = name;
-        this.membersNames = membersNames;  
+        this.users = users;  
     }
 
 }

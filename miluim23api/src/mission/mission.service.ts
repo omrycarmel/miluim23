@@ -1,14 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Mission } from './mission';
+import { AppDataSource } from 'src/db/dbinit';
+import { MissionDbModel } from './mission.dbmodel';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MissionService {
-    missions: Mission[] = []
-
-    create(mission: Mission) {
-        this.missions.push(mission);
+    readonly repo: Repository<MissionDbModel>;
+    constructor() {
+        this.repo = AppDataSource.getRepository(MissionDbModel); 
     }
-    getAll(): Mission[] {
-        return this.missions;
+    async create(mission: Mission): Promise<void> {
+        const model = new MissionDbModel();
+        model.name = mission.name;
+        this.repo.save(model);
+
+    }
+    async getAll(): Promise<Mission[]> {
+        const models =  await this.repo.find()
+        return models.map(m => m.toEntity())
     }
 }

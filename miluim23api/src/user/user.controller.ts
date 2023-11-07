@@ -7,11 +7,12 @@ export class UserController {
     constructor(private userService: UserService) {
     }
     @Get()
-    getAll() {
+    async getAll() {
         return this.userService.getAll()
     }
     @Put()
-    create(@Body() user: User) {
-        this.userService.create(user);
+    async create(@Body() user: User) {
+        console.log(user);
+        await this.userService.create(user);
     }
 }
