@@ -1,3 +1,4 @@
+import { CredentialsDbModel } from "src/auth/credentials.dbmodel";
 import { MissionDbModel } from "src/mission/mission.dbmodel";
 import { ShavzakRelationDbModel } from "src/shavzak/shavzak.dbmodel";
 import { UserDbModel } from "src/user/user.dbmodel";
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: "shavzak",
     synchronize: true,
     logging: true,
-    entities: [UserDbModel, MissionDbModel, ShavzakRelationDbModel],
+    entities: [UserDbModel, MissionDbModel, ShavzakRelationDbModel, CredentialsDbModel],
     subscribers: [],
     migrations: [],
 })

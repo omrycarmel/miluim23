@@ -25,7 +25,7 @@ export class ShavzakService {
     }
 
     async create(shavzakDay: ShavzakDay): Promise<void> {
-        this.repo.delete( {date: shavzakDay.date})
+        await this.repo.delete( {date: shavzakDay.date});
         for (const m of shavzakDay.missions) {
             for (const u of m.users) {
                 const model = new ShavzakRelationDbModel();
