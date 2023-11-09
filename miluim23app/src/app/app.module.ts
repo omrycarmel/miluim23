@@ -19,13 +19,17 @@ import { CreateUserFormComponent } from './create-user-form/create-user-form.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShavzakComponent } from './shavzak/shavzak.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { LoginComponent } from './login/login.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
     AllUsersComponent,
     PageNotFoundComponent,
     CreateUserFormComponent,
-    ShavzakComponent
+    ShavzakComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +45,12 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

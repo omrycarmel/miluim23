@@ -15,7 +15,7 @@ export class AllUsersComponent implements OnInit {
   }
   
   refreshUsers() {
-    this.users = this.userService.getAll()
+    this.users = [] ; // TODO
 
   }
   ngOnInit() {

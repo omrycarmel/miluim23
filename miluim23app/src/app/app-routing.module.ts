@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShavzakComponent } from './shavzak/shavzak.component';
+import { LoginComponent } from './login/login.component';
+import { authGuardFn } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'users', component: AllUsersComponent },
-  { path: 'shavzak', component: ShavzakComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: 'users', component: AllUsersComponent, canActivate: [authGuardFn]},
+  { path: 'shavzak', component: ShavzakComponent, canActivate: [authGuardFn]},
+  { path: 'login', component: LoginComponent},
+  { path: '**', component: PageNotFoundComponent, canActivate: [authGuardFn]},
 ];
 
 @NgModule({
