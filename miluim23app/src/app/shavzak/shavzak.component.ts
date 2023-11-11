@@ -25,9 +25,9 @@ export class ShavzakComponent implements OnInit {
   ngOnInit(): void {
 
     this.shavzak = this.shavzakService.get()
-    this.allUsesNames = this.userService.getAll().map(u => u.name)
     this.userService.refreshDataEvent.subscribe(v => 
-      this.allUsesNames = this.userService.getAll().map(u => u.name)
+      this.userService.getAll().subscribe(users => 
+        this.allUsesNames = users.map(u => u.name))
     )
     let formObject = new Map();
     this.shavzak.missions.forEach(m => 

@@ -30,7 +30,16 @@ export class LoginComponent  implements OnInit{
   submit(): void {
     const cred = this.formGroup.value;
     this.authService.setCredentials(cred.username, cred.password);
-    this.userService.getAll();
-    
+    this.userService.getAll().subscribe(
+      users => {
+        this.error = '';
+        this.router.navigate(['']);
+      },
+      err => {
+        this.authService.setCredentials('', '');
+        this.error = "unable to login";
+      }
+    );
+
   }
 }

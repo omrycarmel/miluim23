@@ -7,24 +7,25 @@ export class AuthService {
 
   constructor() { }
   
-  user = "";
-  password = "";
 
   getUser(): string {
-    return this.user;
+    return localStorage.getItem('user') ?? "";
+  }
+  private getPassowrd(): string {
+    return localStorage.getItem('password') ?? '';
   }
 
   getAuthHeader(): string {
-    const encoded = btoa(`${this.user}:${this.password}`);
+    const encoded = btoa(`${this.getUser()}:${this.getPassowrd()}`);
     return "basic " + encoded;
   }
 
   hasCredentials(): boolean {
-    return this.user != '' && this.password != '';
+    return this.getUser() != '' && this.getPassowrd() != '';
   }
 
   setCredentials(user: string, password: string) {
-    this.user = user;
-    this.password = password;
+    localStorage.setItem('user', user);
+    localStorage.setItem('password', password)
   }
 }
