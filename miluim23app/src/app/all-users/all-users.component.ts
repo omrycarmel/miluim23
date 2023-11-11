@@ -15,8 +15,9 @@ export class AllUsersComponent implements OnInit {
   }
   
   refreshUsers() {
-    this.users = [] ; // TODO
-
+    this.userService.getAll().subscribe(
+      users => this.users = users
+    );
   }
   ngOnInit() {
     this.userService.refreshDataEvent.subscribe(v => {

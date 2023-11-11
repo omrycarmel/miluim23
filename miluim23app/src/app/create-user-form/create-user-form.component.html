@@ -7,6 +7,10 @@
     </header>
     <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
+            <mat-label>מספר אישי</mat-label>
+            <input matInput type="number" formControlName="privateNumber"/>
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name"/>
         </mat-form-field>

@@ -24,8 +24,8 @@ export class UserServiceService {
     .pipe(map(o => o as User[]));
   }
 
-  createUser(user: User) {
-    // this.users.push(user);
-    this.refreshDataEvent.next(true)
+  createUser(user: User): void {
+    this.httpClient.put(this.config.apiBaseUrl + '/user', user)
+    .subscribe(_ => this.refreshDataEvent.next(true));
   }
 }

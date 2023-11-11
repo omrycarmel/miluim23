@@ -16,7 +16,8 @@ export class CreateUserFormComponent  implements OnInit {
   ngOnInit() {
     this.createUserForm = this.formBuilder.group({
       name: '',
-      phone: ''
+      phone: '',
+      privateNumber: 1234567
     })
   }
 
@@ -24,6 +25,7 @@ export class CreateUserFormComponent  implements OnInit {
     console.log(this.createUserForm.value)
     this.userService.createUser(
       new User(
+        this.createUserForm.value.privateNumber,
         this.createUserForm.value.name,
         this.createUserForm.value.phone,
       )
