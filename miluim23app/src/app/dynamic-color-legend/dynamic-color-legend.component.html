@@ -1,0 +1,18 @@
+<form [formGroup]="form">
+    <table>
+        <thead>
+            <ng-container *ngFor="let k of keys">
+                <th>{{k}}</th>
+            </ng-container>
+        </thead>
+        <tbody ng-container formArrayName="records">
+
+                <ng-container *ngFor="let recordForm of records.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+
+                        <td><input matInput type="color" formControlName="color" (ngModelChange)="onChangeColor()"/></td>
+                    </ng-container>
+                </ng-container>
+        </tbody>
+    </table>
+</form>

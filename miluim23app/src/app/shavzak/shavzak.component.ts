@@ -17,44 +17,44 @@ export class ShavzakComponent implements OnInit {
     private formBuilder: FormBuilder
   )
   {}
-  shavzak: ShavzakDay = new ShavzakDay([]);
+  shavzak: ShavzakDay = new ShavzakDay(new Date(), []);
   allUsesNames: string[] = [];
   formGroup!: FormGroup;
   public sep = '__';
 
   ngOnInit(): void {
 
-    this.shavzak = this.shavzakService.get()
-    this.userService.refreshDataEvent.subscribe(v => 
-      this.userService.getAll().subscribe(users => 
-        this.allUsesNames = users.map(u => u.name))
-    )
-    let formObject = new Map();
-    this.shavzak.missions.forEach(m => 
-      formObject.set(m.name, new FormArray(
-        m.membersNames.map(m => new FormControl(''))
-      ))
+    // this.shavzak = this.shavzakService.get()
+    // this.userService.refreshDataEvent.subscribe(v => 
+    //   this.userService.getAll().subscribe(users => 
+    //     this.allUsesNames = users.map(u => u.name))
+    // )
+    // let formObject = new Map();
+    // this.shavzak.missions.forEach(m => 
+    //   formObject.set(m.name, new FormArray(
+    //     m.membersNames.map(m => new FormControl(''))
+    //   ))
 
-      )
-    let entries = this.shavzak.missions.flatMap(m => {
-      let missionIds = [];
-      for (let i = 0; i < m.membersNames.length; i++) {
-        missionIds.push([m.name + this.sep + i, m.membersNames[i]])
-      }
-      return missionIds
-    })
+    //   )
+    // let entries = this.shavzak.missions.flatMap(m => {
+    //   let missionIds = [];
+    //   for (let i = 0; i < m.membersNames.length; i++) {
+    //     missionIds.push([m.name + this.sep + i, m.membersNames[i]])
+    //   }
+    //   return missionIds
+    // })
 
-    this.formGroup = this.formBuilder.group(
-      Object.fromEntries(entries)
-    )
+    // this.formGroup = this.formBuilder.group(
+    //   Object.fromEntries(entries)
+    // )
   }
   save() {
-    for (let k in this.formGroup.value) {
-      let v = this.formGroup.value[k]
-      let [missionName, userIndex] = k.split(this.sep)
-      this.shavzak.missions.find(m => m.name == missionName)!.membersNames[parseInt(userIndex)] = v
-    }
-    this.shavzakService.save(this.shavzak)
+  //   for (let k in this.formGroup.value) {
+  //     let v = this.formGroup.value[k]
+  //     let [missionName, userIndex] = k.split(this.sep)
+  //     this.shavzak.missions.find(m => m.name == missionName)!.membersNames[parseInt(userIndex)] = v
+  //   }
+  //   this.shavzakService.save(this.shavzak)
   }
 
 }

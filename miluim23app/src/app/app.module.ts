@@ -22,6 +22,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { ShavzakPlannerComponent } from './shavzak-planner/shavzak-planner.component';
+import { DynamicColorLegendComponent } from './dynamic-color-legend/dynamic-color-legend.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { AuthInterceptor } from './auth.interceptor';
     PageNotFoundComponent,
     CreateUserFormComponent,
     ShavzakComponent,
-    LoginComponent
+    LoginComponent,
+    ShavzakPlannerComponent,
+    DynamicColorLegendComponent
   ],
   imports: [
     BrowserModule,

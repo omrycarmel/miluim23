@@ -10,6 +10,12 @@ export class ShavzakController {
 
     constructor(private shavzakService: ShavzakService)
     {}    
+    @Get('last')
+    @UseGuards(AuthGuard)
+    async getLastShavzakDay() {
+        return await this.shavzakService.getLastShavzak();
+    }
+
     @Get(':timestamp')
     @UseGuards(AuthGuard)
     async getShavzakDay(@Param() params: any) {

@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Mission } from './entities/Mission';
 import { ShavzakDay } from './entities/ShavzakDay';
+import { MissionAssignment } from './entities/MissionAssignment';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from './config.service';
+import { Observable, Observer, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShavzakService {
-  private amiad = new Mission(
-    "amiad boker", 420, 900, false, ['random', '']
-  )
-  private shavzakDay: ShavzakDay = new ShavzakDay(
-    [this.amiad] //new Map([["amiad boker", this.amiad]])
-  )
-  constructor() { }
 
-  get() {
-    return this.shavzakDay;
+  constructor(
+    private httpClient: HttpClient,
+    private configService: ConfigService
+  ) {
   }
-  save(shavzakDay: ShavzakDay) {
-    this.shavzakDay = shavzakDay;
+
+  private deserializeDate(sd: ShavzakDay): ShavzakDay {
+    const date = new Date(sd.date as unknown as string);
+    return new ShavzakDay(date, sd.missions);
+  }
+
+  get(date: Date): Observable<ShavzakDay> {
+    return this.httpClient.get(this.configService.apiBaseUrl + '/shavzak/' + date.getTime())
+    .pipe(map(o => this.deserializeDate((o as ShavzakDay))));
+  }
+
+  getLast(): Observable<ShavzakDay> {
+    return this.httpClient.get(this.configService.apiBaseUrl + '/shavzak/last')
+    .pipe(map(o => this.deserializeDate((o as ShavzakDay))))  
+  }
+  async save(shavzakDay: ShavzakDay): Promise<void> {
+    await this.httpClient.put(this.configService.apiBaseUrl + '/shavzak', shavzakDay);
   }
 }

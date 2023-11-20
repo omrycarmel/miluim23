@@ -1,0 +1,19 @@
+<app-dynamic-color-legend *ngIf="getMissionLegendKeys().length > 0" [keys]="getMissionLegendKeys()" (onChangeEvent)="onUpdateColorLegend($event)"></app-dynamic-color-legend>
+<table>
+    <thead>
+        <th></th>
+        <ng-container *ngFor="let sd of shavzakDays">
+            <th>{{sd.date.toDateString()}}</th>
+        </ng-container>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of users">
+            <td>{{u.name}}</td>
+            <ng-container *ngFor="let sd of shavzakDays">
+                <td>
+                    <button class="square-button" (click)="rotateMission(u, sd)" [ngStyle]="{'background-color': getMissionColorOfUserInDate(u, sd) }"></button>
+                </td>
+            </ng-container>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+.square-button {
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-color: black;
+    cursor: pointer;
+}
