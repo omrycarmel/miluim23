@@ -3,6 +3,7 @@ import { ShavzakDay } from '../entities/ShavzakDay';
 import { ShavzakService } from '../shavzak.service';
 import { UserServiceService } from '../user-service.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { User } from '../entities/User';
 
 @Component({
   selector: 'app-shavzak',
@@ -14,47 +15,20 @@ export class ShavzakComponent implements OnInit {
   constructor(
     private shavzakService: ShavzakService,
     private userService: UserServiceService,
-    private formBuilder: FormBuilder
   )
   {}
   shavzak: ShavzakDay = new ShavzakDay(new Date(), []);
-  allUsesNames: string[] = [];
-  formGroup!: FormGroup;
-  public sep = '__';
+  users: User[] = [];
 
   ngOnInit(): void {
-
-    // this.shavzak = this.shavzakService.get()
-    // this.userService.refreshDataEvent.subscribe(v => 
-    //   this.userService.getAll().subscribe(users => 
-    //     this.allUsesNames = users.map(u => u.name))
-    // )
-    // let formObject = new Map();
-    // this.shavzak.missions.forEach(m => 
-    //   formObject.set(m.name, new FormArray(
-    //     m.membersNames.map(m => new FormControl(''))
-    //   ))
-
-    //   )
-    // let entries = this.shavzak.missions.flatMap(m => {
-    //   let missionIds = [];
-    //   for (let i = 0; i < m.membersNames.length; i++) {
-    //     missionIds.push([m.name + this.sep + i, m.membersNames[i]])
-    //   }
-    //   return missionIds
-    // })
-
-    // this.formGroup = this.formBuilder.group(
-    //   Object.fromEntries(entries)
-    // )
+    const date = new Date();
+    this.shavzakService.getLast().subscribe(sd => this.shavzak = sd);
+    this.userService.getAll().subscribe(users => this.users = users);
   }
-  save() {
-  //   for (let k in this.formGroup.value) {
-  //     let v = this.formGroup.value[k]
-  //     let [missionName, userIndex] = k.split(this.sep)
-  //     this.shavzak.missions.find(m => m.name == missionName)!.membersNames[parseInt(userIndex)] = v
-  //   }
-  //   this.shavzakService.save(this.shavzak)
+
+  getNameOfUserId(id: number): string {
+    return this.users.find(u => u.privateNumber == id)?.name!;
   }
+
 
 }

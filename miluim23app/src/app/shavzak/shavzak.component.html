@@ -1,3 +1,6 @@
-<ng-container *ngFor="">
-
+<ng-container *ngFor="let m of shavzak.missions">
+    <h1>{{m.missionName}}</h1>
+    <ul *ngFor="let u of m.users">
+        <li>{{getNameOfUserId(u)}}</li>
+    </ul>
 </ng-container>
