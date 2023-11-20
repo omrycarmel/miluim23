@@ -4,6 +4,7 @@ import { UserServiceService } from '../user-service.service';
 import { ShavzakDay } from '../entities/ShavzakDay';
 import { User } from '../entities/User';
 import { MappedColorRecord } from '../dynamic-color-legend/dynamic-color-legend.component';
+import { substractDaysFromDate } from '../utils/date-utils';
 
 
 
@@ -37,9 +38,7 @@ export class ShavzakPlannerComponent implements OnInit{
       this.afterLoadingShavzakData();
       return;
     }
-    const d = new Date();
-    const dayInMs = 1000 * 3600 * 24;
-    d.setTime(this.shavzakDays[this.shavzakDays.length -1].date.getTime() - dayInMs);
+    const d = substractDaysFromDate(1, this.shavzakDays[this.shavzakDays.length -1].date);
     this.shavzakService.get(d).subscribe(sd => {
       this.shavzakDays.push(sd);
       this.fillShavzakDays();

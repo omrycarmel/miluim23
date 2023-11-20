@@ -4,6 +4,7 @@ import { ShavzakService } from '../shavzak.service';
 import { UserServiceService } from '../user-service.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { User } from '../entities/User';
+import { substractDaysFromDate } from '../utils/date-utils';
 
 @Component({
   selector: 'app-shavzak',
@@ -29,6 +30,8 @@ export class ShavzakComponent implements OnInit {
   getNameOfUserId(id: number): string {
     return this.users.find(u => u.privateNumber == id)?.name!;
   }
-
+  loadPrevDay(): void {
+    this.shavzakService.get(substractDaysFromDate(1, this.shavzak.date)).subscribe(sd => this.shavzak = sd);
+  }
 
 }
