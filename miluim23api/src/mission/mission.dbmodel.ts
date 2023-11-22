@@ -5,6 +5,14 @@ import { Mission } from "./mission"
 export class MissionDbModel {
     @PrimaryColumn()
     name: string
+ 
+    @Column()
+    startTimeMin: number
+    @Column() 
+    endTimeMin: number
+
+    @Column()
+    requiredUsers: number
 
     toEntity(): Mission {
         return new Mission(

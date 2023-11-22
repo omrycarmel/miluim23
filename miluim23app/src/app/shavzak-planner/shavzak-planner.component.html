@@ -1,4 +1,7 @@
 <app-dynamic-color-legend *ngIf="getMissionLegendKeys().length > 0" [keys]="getMissionLegendKeys()" (onChangeEvent)="onUpdateColorLegend($event)"></app-dynamic-color-legend>
+<br/>
+<br/>
+<button (click)="addDay()">Add Day</button><button (click)="saveChanges()">SaveChanges</button>
 <table>
     <thead>
         <th></th>

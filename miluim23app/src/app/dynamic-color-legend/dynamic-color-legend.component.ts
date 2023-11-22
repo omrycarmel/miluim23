@@ -25,9 +25,13 @@ export class DynamicColorLegendComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       records: this.fb.array(
-        this.keys.map(_ => this.fb.group({ color: ''}))
+        this.keys.map(k => {
+          const color = this.getRecordColorFromCache(k)
+          return this.fb.group({ color })
+        })
       )
     });
+    this.onChangeColor();
   }
 
   get records() {
@@ -38,5 +42,17 @@ export class DynamicColorLegendComponent implements OnInit {
     const colors = this.records.controls.map((c, i) => 
       new MappedColorRecord(this.keys[i], c.value.color));
     this.onChangeEvent.emit(colors);
+    this.storeRecordColorsInCache(colors);
+  }
+
+  readonly colorCachePrefix = 'lgenednColor_';
+  getRecordColorFromCache(mission: string): string {
+    return localStorage.getItem(this.colorCachePrefix + mission) ?? ' black'
+  }
+
+  storeRecordColorsInCache(records: MappedColorRecord[]): void {
+    for (const r of records) {
+      localStorage.setItem(this.colorCachePrefix + r.key, r.color);
+    }
   }
 }

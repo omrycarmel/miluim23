@@ -31,7 +31,7 @@ export class ShavzakService {
     return this.httpClient.get(this.configService.apiBaseUrl + '/shavzak/last')
     .pipe(map(o => this.deserializeDate((o as ShavzakDay))))  
   }
-  async save(shavzakDay: ShavzakDay): Promise<void> {
-    await this.httpClient.put(this.configService.apiBaseUrl + '/shavzak', shavzakDay);
+  save(shavzakDay: ShavzakDay): Observable<any> {
+    return this.httpClient.put(this.configService.apiBaseUrl + '/shavzak', shavzakDay);
   }
 }

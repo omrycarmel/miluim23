@@ -4,7 +4,9 @@ import { UserServiceService } from '../user-service.service';
 import { ShavzakDay } from '../entities/ShavzakDay';
 import { User } from '../entities/User';
 import { MappedColorRecord } from '../dynamic-color-legend/dynamic-color-legend.component';
-import { substractDaysFromDate } from '../utils/date-utils';
+import { addDaysToDate, substractDaysFromDate } from '../utils/date-utils';
+import { MissionAssignment } from '../entities/MissionAssignment';
+import { MissionService } from '../mission.service';
 
 
 
@@ -16,6 +18,7 @@ import { substractDaysFromDate } from '../utils/date-utils';
 export class ShavzakPlannerComponent implements OnInit{
   constructor(
     private shavzakService: ShavzakService,
+    private missionService: MissionService,
     private userService: UserServiceService
   ) {}
 
@@ -55,22 +58,17 @@ export class ShavzakPlannerComponent implements OnInit{
   }
 
   createMissionLegend(): void {
-    this.missionLegend = [new MappedColorRecord(this.NOT_IN_MISSION, 'white')];
-    const allMissions = new Set<string>();
-    for (const sd of this.shavzakDays) {
-      for (const m of sd.missions) {
-        allMissions.add(m.missionName);
-      }
-    }
-    allMissions.forEach(mn =>
-      this.missionLegend.push(new MappedColorRecord(mn, 'black')));
+    const missionLegend = [new MappedColorRecord(this.NOT_IN_MISSION, 'white')];
+    this.missionService.getAll().subscribe(missions => {
+      missions.forEach(m =>
+        missionLegend.push(new MappedColorRecord(m.name, 'yellow')));
+        this.missionLegend = missionLegend;
+    });
   }
 
   getMissionLegendKeys(): string[] {
     return this.missionLegend.map(r => r.key);
   }
-
-  
 
   getMissionOfUserInShavzak(user: User, shavzakDay: ShavzakDay): string | undefined {
     return shavzakDay.missions.find(m =>
@@ -103,11 +101,30 @@ export class ShavzakPlannerComponent implements OnInit{
     if (nextIndex <= 0) {
       return;
     }
+    if (shavzakDay.missions.find(m => m.missionName === nextMission) === undefined) {
+      shavzakDay.missions.push(new MissionAssignment(nextMission, []));
+    }
     shavzakDay.missions = shavzakDay.missions.map(m => {
       if (m.missionName == nextMission) {
         m.users.push(user.privateNumber);
       }
       return m;
     });
+  }
+
+  saveChanges(): void {
+    for (const sd of this.shavzakDays) {
+      this.shavzakService.save(sd).subscribe(_ => {});
+    }
+  }
+
+  addDay(): void {
+    const latest = this.shavzakDays[0];
+    const newDate = addDaysToDate(1, latest.date);
+    const missions = latest.missions.map(m => {
+      return new MissionAssignment(m.missionName, [])
+    })
+    const sd = new ShavzakDay(newDate, missions);
+    this.shavzakDays.unshift(sd);
   }
 }
