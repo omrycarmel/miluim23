@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { ShavzakPlannerComponent } from './shavzak-planner/shavzak-planner.component';
 import { DynamicColorLegendComponent } from './dynamic-color-legend/dynamic-color-legend.component';
+import { MissionsComponent } from './missions/missions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { DynamicColorLegendComponent } from './dynamic-color-legend/dynamic-colo
     ShavzakComponent,
     LoginComponent,
     ShavzakPlannerComponent,
-    DynamicColorLegendComponent
+    DynamicColorLegendComponent,
+    MissionsComponent
   ],
   imports: [
     BrowserModule,

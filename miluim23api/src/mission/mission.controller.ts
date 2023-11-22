@@ -9,13 +9,13 @@ export class MissionController {
     constructor(private missionService: MissionService){}
     @Get()
     @UseGuards(AuthGuard)
-    getAll() {
-        return this.missionService.getAll();
+    async getAll() {
+        return await this.missionService.getAll();
     }
 
     @Post()
     @UseGuards(AuthAdminGuard)
-    create(@Body() mission: Mission) {
-        return this.missionService.create(mission);
+    async create(@Body() mission: Mission) {
+        return await this.missionService.create(mission);
     }
 }
